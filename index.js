@@ -5,114 +5,29 @@ const express = require('express');
 const { log } = require('console');
 const app = express();
 
+const connection = require('../modules/connection.js').createConnection();
+
 app.get('/', async (req, res) => {
     
 });
 
 //#region POST - droneRequests
 
-app.post('/sensor', async (req, res) => {
-    const { sensor } = req.body;
+app.post('/drone', async (req, res) => {
+    const body = req.body;
 
     var status = null;
     var result = { };
 
     try {
-        
+    
+        log("ok");
+        log(body);
+
     } catch (error) {
-        
+        res.status(500).send(result);
     } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/coordinates', async (req, res) => {
-    const { x, y } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/temperature', async (req, res) => {
-    const { temperature } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/pressure', async (req, res) => {
-    const { pressure } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/height', async (req, res) => {
-    const { height } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/speed', async (req, res) => {
-    const { speed } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
-    }
-});
-
-app.post('/camera', async (req, res) => {
-    const { image } = req.body;
-
-    var status = null;
-    var result = { };
-
-    try {
-        
-    } catch (error) {
-        
-    } finally {
-        res.status(status).send(result);
+        res.status(200).send(result);
     }
 });
 
