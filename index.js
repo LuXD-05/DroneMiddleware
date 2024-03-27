@@ -2,7 +2,6 @@
 
 const http = require('http');
 const express = require('express');
-const { log } = require('console');
 const app = express();
 
 const { connection, executeQuery } = require('../modules/connection.js');
@@ -24,29 +23,30 @@ var image = null;
 //#region POST - droneRequests
 
 app.post('/drone', async (req, res) => {
+    
     const body = req.body;
 
-    var result = { };
-
     try {
-    
-        log("ok");
-        log(body);
-
+        // Assign received values to global variables
+        timestamp = body.timestamp;
+        proximity = body.proximity;
+        temperature = body.temperature;
+        pressure = body.pressure;
+        humidity = body.humidity;
+        coordinates = body.coordinates; // { x: 45.845709, y: 8.709734 };
+        height = body.height;
+        speed = body.speed;
+        image = body.image;
     } catch (error) {
-        res.status(500).send(result);
+        res.status(500).send({ error: error });
     }
     
     try {
-        
-        log("##### try db #####");
-        
-        executeQuery('', []);
-
-        log("##### end try db #####");
-        
+        // test query execution
+        var result = executeQuery('SELECT * FROM measurements', []);
+        console.log(result);        
     } catch (error) {
-        res.status(500).send(result);
+        res.status(500).send({ error: error });
     }
     
     res.status(200).send(result);
@@ -61,23 +61,20 @@ app.get('/client', async (req, res) => {
     var result = { };
 
     try {
-        log("ok");
-
-        result.timeStamp = 
-        result.Proximity = false;
-        result.Coordinates = { x: 45.845709, y: 8.709734 };
-        result.Temperature = 0;
-        result.Pressure = 0;
-        result.Height = 0;
-        result.Speed = 0;
-        result.Image = "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAADMElEQVR4nOzVwQnAIBQFQYXff81RUkQCOyDj1YOPnbXWPmeTRef+/3O/OyBjzh3CD95BfqICMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMO0TAAD//2Anhf4QtqobAAAAAElFTkSuQmCC";
-
+        // Assign to the resultro send the last received data from the drone
+        result.timeStamp = timestamp;
+        result.Proximity = proximity;
+        result.Coordinates = coordinates;
+        result.Temperature = temperature;
+        result.Pressure = pressure;
+        result.Height = height;
+        result.Speed = speed;
+        result.Image = image; // "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAADMElEQVR4nOzVwQnAIBQFQYXff81RUkQCOyDj1YOPnbXWPmeTRef+/3O/OyBjzh3CD95BfqICMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMO0TAAD//2Anhf4QtqobAAAAAElFTkSuQmCC"
     } catch (error) {
-        log("errore");
-        res.status(500).error();
-    } finally {
-        res.status(200).send(result);
+        res.status(500).send({ error: error });
     }
+        
+    res.status(200).send(result);
 });
 
 //#endregion
@@ -87,11 +84,3 @@ const httpServer = http.createServer(app);
 httpServer.listen(httpPort, () => {
     console.log('Server HTTP in ascolto sulla porta ' + httpPort);
 });
-
-// 0 e 1 sensori
-// coord x flight controller 
-// temp
-// pressione
-// altezza 
-// velocità
-// telecamera blob
