@@ -5,18 +5,27 @@ const express = require('express');
 const { log } = require('console');
 const app = express();
 
-const connection = require('../modules/connection.js').createConnection();
+const { connection, executeQuery } = require('../modules/connection.js');
 
-app.get('/', async (req, res) => {
-    
-});
+//#region Variables
+
+var timestamp = null;
+var proximity = null;
+var temperature = null;
+var pressure = null;
+var humidity = null;
+var coordinates = null;
+var height = null;
+var speed = null;
+var image = null;
+
+//#endregion
 
 //#region POST - droneRequests
 
 app.post('/drone', async (req, res) => {
     const body = req.body;
 
-    var status = null;
     var result = { };
 
     try {
@@ -26,9 +35,21 @@ app.post('/drone', async (req, res) => {
 
     } catch (error) {
         res.status(500).send(result);
-    } finally {
-        res.status(200).send(result);
     }
+    
+    try {
+        
+        log("##### try db #####");
+        
+        executeQuery('', []);
+
+        log("##### end try db #####");
+        
+    } catch (error) {
+        res.status(500).send(result);
+    }
+    
+    res.status(200).send(result);
 });
 
 //#endregion
@@ -42,7 +63,8 @@ app.get('/client', async (req, res) => {
     try {
         log("ok");
 
-        result.Sensor = "";
+        result.timeStamp = 
+        result.Proximity = false;
         result.Coordinates = { x: 45.845709, y: 8.709734 };
         result.Temperature = 0;
         result.Pressure = 0;
