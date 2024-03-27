@@ -4,41 +4,231 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-app.get('/', async function(req, res) {
+app.get('/', async (req, res) => {
     
 });
 
-app.get('/sensor', async function(req, res) {
-    
+//#region POST - droneRequests
+
+app.post('/sensor', async (req, res) => {
+    const { sensor } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/coordinates', async function(req, res) {
-    
+app.post('/coordinates', async (req, res) => {
+    const { x, y } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/temperature', async function(req, res) {
-    
+app.post('/temperature', async (req, res) => {
+    const { temperature } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/pressure', async function(req, res) {
-    
+app.post('/pressure', async (req, res) => {
+    const { pressure } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/height', async function(req, res) {
-    
+app.post('/height', async (req, res) => {
+    const { height } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/speed', async function(req, res) {
-    
+app.post('/speed', async (req, res) => {
+    const { speed } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-app.get('/camera', async function(req, res) {
-    
+app.post('/camera', async (req, res) => {
+    const { image } = req.body;
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
 });
 
-const httpServer = http.createServer(app);
+//#endregion
+
+//#region GET - clientRequests
+
+app.get('/sensor', async (req, res) => {
+
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/coordinates', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/temperature', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/pressure', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/height', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/speed', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+app.get('/camera', async (req, res) => {
+    
+
+    var status = null;
+    var result = { };
+
+    try {
+        
+    } catch (error) {
+        
+    } finally {
+        res.status(status).send(result);
+    }
+});
+
+//#endregion
+
 
 var httpPort = 3001;
+const httpServer = http.createServer(app);
 httpServer.listen(httpPort, () => {
     console.log('Server HTTP in ascolto sulla porta ' + httpPort);
 });
