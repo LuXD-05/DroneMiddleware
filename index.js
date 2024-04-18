@@ -5,7 +5,9 @@ const express = require('express');
 const { log } = require('console');
 const app = express();
 
-const { connection, executeQuery } = require('./lib/modules/connection.js');
+const { Do } = require('./lib/modules/connection.js');
+
+app.use(express.json());
 
 //#region Variables
 
@@ -31,7 +33,7 @@ var image = 'iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAACAAElEQVR4nOyd91+N/x/
 // POST route from drone to server: 
 // Sends sensors + saves them in db
 app.post('/api/drone/sensori', async (req, res) => {
-    const body = req.body;
+    const body = req.body.humidity;
 
     var result = { };
 
@@ -47,7 +49,9 @@ app.post('/api/drone/sensori', async (req, res) => {
         
         log("##### try db #####");
         
-        //executeQuery('insert into leonardo', []);
+        // createConnection()
+        // var result = await executeQuery('SELECT * FROM measurements', []);
+        
 
         log("##### end try db #####");
         
@@ -78,7 +82,7 @@ app.get('/api/drone/sensori', async (req, res) => {
         result.pressure = 0;
         result.humidity = 0;
         result.longitude = Math.floor(Math.random() * 180); //8.7097;
-        result.latitude = Math.floor(Math.random() * 180); //45.8457;
+        result.latitude = Math.floor(Math.random() * 90); //45.8457;
 
         result.height = 0;
         result.speed = 0;
@@ -117,6 +121,8 @@ httpServer.listen(httpPort, () => {
     console.log('Server HTTP in ascolto sulla porta ' + httpPort);
 });
 
+Do();
+
 // 0 e 1 sensori
 // coord x flight controller 
 // temp
@@ -124,3 +130,5 @@ httpServer.listen(httpPort, () => {
 // altezza 
 // velocità
 // telecamera blob
+
+// forever -m5 per far startare il server node 
