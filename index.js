@@ -69,10 +69,10 @@ app.get('/api/drone/sensori', async (req, res) => {
     try {
         log("ok");
 
-        result.ne = 0;
-        result.nw = 0;
-        result.sw = 0;
-        result.se = 0;
+        result.ne = false;
+        result.nw = false;
+        result.sw = false;
+        result.se = false;
         result.timestamp = '';
         result.temperature = 0;
         result.pressure = 0;
