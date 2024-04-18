@@ -32,7 +32,7 @@ app.post('/api/drone/sensori', async (req, res) => {
 
     try {
     
-        log(body);
+        log("DATI\n" + body);
 
     } catch (error) {
         res.status(500).send(result);
